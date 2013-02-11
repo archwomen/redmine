@@ -1,0 +1,20 @@
+Deploying Redmine on Arch Women's server.
+
+There are two branches, public and private.
+Public can be shared on GitHub.
+Access to private must be restricted.
+
+The flow of changes through merge commits,
+upstream -> public -> private
+
+Private is the branch deployed on the server.
+
+Changes from upstream are merged into public during upgrade.
+Follow: http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade
+
+File should be readable by the web server.
+The following need to be writable as well:
+/log, /tmp, /files, and /public/plugin_assets
+
+Other considerations, web server config and ruby deps, 
+should be set accordingly.
