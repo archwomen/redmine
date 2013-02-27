@@ -1,20 +1,32 @@
 Deploying Redmine on Arch Women's server.
 
-There are two branches, public and private.
-Public can be shared on GitHub.
-Access to private must be restricted.
+The directory where redmine files are kept must 
+be readable by the webserver. The directories, 
+log, tmp, files, and public/plugin_assets must be 
+writable.
 
-The flow of changes through merge commits,
-upstream -> public -> private
+Git needs to write to the files too (obviously). 
+Have all files owned by git:http. The webserver 
+runs as group http and git is part of group http. 
+Have all directories setguid, like,
+drwxr-sr-x git  http redmine.archwomen.org/
 
-Private is the branch deployed on the server.
+Set specific directories as writeable with,
+chmod -R g+w "$wrkdir"/{log,tmp,files,public/plugin_assets}
+It is not needed to setuid those as git ignores 
+them.
 
-Changes from upstream are merged into public during upgrade.
-Follow: http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade
+Populate with,
+GIT_WORK_TREE=/path/to/redmine/root git checkout -f
 
-File should be readable by the web server.
-The following need to be writable as well:
-/log, /tmp, /files, and /public/plugin_assets
+To upgrade, merge from upstream and follow, 
+http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade
+
+Files containing secret information, such as 
+passwords, are stored in redmine-private.
+
+Files created on the server, such as logs, are 
+copied to server-data-backup daily.
 
 Other considerations, web server config and ruby deps, 
 should be set accordingly.
