@@ -1,5 +1,5 @@
 # Redmine - project management software
-# Copyright (C) 2006-2012  Jean-Philippe Lang
+# Copyright (C) 2006-2013  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -39,8 +39,8 @@ class Role < ActiveRecord::Base
     ['own', :label_issues_visibility_own]
   ]
 
-  scope :sorted, order("#{table_name}.builtin ASC, #{table_name}.position ASC")
-  scope :givable, order("#{table_name}.position ASC").where(:builtin => 0)
+  scope :sorted, lambda { order("#{table_name}.builtin ASC, #{table_name}.position ASC") }
+  scope :givable, lambda { order("#{table_name}.position ASC").where(:builtin => 0) }
   scope :builtin, lambda { |*args|
     compare = (args.first == true ? 'not' : '')
     where("#{compare} builtin = 0")

@@ -1,5 +1,5 @@
 # Redmine - project management software
-# Copyright (C) 2006-2012  Jean-Philippe Lang
+# Copyright (C) 2006-2013  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -209,7 +209,7 @@ class RepositoryTest < ActiveSupport::TestCase
     assert_equal [101], fixed_issue.changeset_ids
 
     # issue change
-    journal = fixed_issue.journals.find(:first, :order => 'created_on desc')
+    journal = fixed_issue.journals.reorder('created_on desc').first
     assert_equal User.find_by_login('dlopper'), journal.user
     assert_equal 'Applied in changeset r2.', journal.notes
 

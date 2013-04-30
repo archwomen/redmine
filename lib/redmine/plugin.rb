@@ -1,5 +1,5 @@
 # Redmine - project management software
-# Copyright (C) 2006-2012  Jean-Philippe Lang
+# Copyright (C) 2006-2013  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -143,6 +143,10 @@ module Redmine #:nodoc:
 
     def public_directory
       File.join(self.class.public_directory, id.to_s)
+    end
+
+    def to_param
+      id
     end
 
     def assets_directory

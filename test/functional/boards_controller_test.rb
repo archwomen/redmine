@@ -1,5 +1,5 @@
 # Redmine - project management software
-# Copyright (C) 2006-2012  Jean-Philippe Lang
+# Copyright (C) 2006-2013  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -90,8 +90,9 @@ class BoardsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'show'
 
-    assert_tag 'form', :attributes => {:id => 'message-form'}
-    assert_tag 'input', :attributes => {:name => 'message[subject]'}
+    assert_select 'form#message-form' do
+      assert_select 'input[name=?]', 'message[subject]'
+    end
   end
 
   def test_show_atom

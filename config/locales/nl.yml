@@ -291,8 +291,6 @@ nl:
   general_text_Yes: 'Ja'
   general_text_no: 'nee'
   general_text_yes: 'ja'
-  gui_validation_error: 1 fout
-  gui_validation_error_plural: "%{count} fouten"
   label_activity: Activiteit
   label_add_another_file: Ander bestand toevoegen
   label_add_note: Voeg een notitie toe
@@ -385,8 +383,6 @@ nl:
   label_document_added: Document toegevoegd
   label_document_new: Nieuw document
   label_document_plural: Documenten
-  label_download: "%{count} Download"
-  label_download_plural: "%{count} Downloads"
   label_downloads_abbr: D/L
   label_duplicated_by: gedupliceerd door
   label_duplicates: dupliceert
@@ -465,8 +461,6 @@ nl:
   label_message_plural: Berichten
   label_message_posted: Bericht toegevoegd
   label_min_max_length: Min-max lengte
-  label_modification: "%{count} wijziging"
-  label_modification_plural: "%{count} wijzigingen"
   label_modified: gewijzigd
   label_module_plural: Modules
   label_month: Maand
@@ -665,7 +659,6 @@ nl:
   permission_log_time: Gespendeerde tijd loggen
   permission_manage_boards: Forums beheren
   permission_manage_categories: Issue-categorieën beheren
-  permission_manage_documents: Documenten beheren
   permission_manage_files: Bestanden beheren
   permission_manage_issue_relations: Issuerelaties beheren
   permission_manage_members: Leden beheren
@@ -915,7 +908,6 @@ nl:
   label_principal_search: "Zoek naar gebruiker of groep:"
   label_user_search: "Zoek naar gebruiker:"
   field_visible: Zichtbaar
-  setting_emails_header: Emails header
   setting_commit_logtime_activity_id: Standaard activiteit voor tijdregistratie
   text_time_logged_by_changeset: Toegepast in changeset %{value}.
   setting_commit_logtime_enabled: Activeer tijdregistratie
@@ -1063,3 +1055,17 @@ nl:
   setting_non_working_week_days: Non-working days
   label_in_the_next_days: in the next
   label_in_the_past_days: in the past
+  label_attribute_of_user: User's %{name}
+  text_turning_multiple_off: If you disable multiple values, multiple values will be
+    removed in order to preserve only one value per item.
+  label_attribute_of_issue: Issue's %{name}
+  permission_add_documents: Add documents
+  permission_edit_documents: Edit documents
+  permission_delete_documents: Delete documents
+  label_gantt_progress_line: Progress line
+  setting_jsonp_enabled: Enable JSONP support
+  field_inherit_members: Inherit members
+  field_closed_on: Closed
+  setting_default_projects_tracker_ids: Default trackers for new projects
+  label_total_time: Totaal
+  setting_emails_header: Email header

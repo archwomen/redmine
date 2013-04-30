@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 # Redmine - project management software
-# Copyright (C) 2006-2012  Jean-Philippe Lang
+# Copyright (C) 2006-2013  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -184,7 +184,7 @@ module IssuesHelper
 
   def sidebar_queries
     unless @sidebar_queries
-      @sidebar_queries = Query.visible.all(
+      @sidebar_queries = IssueQuery.visible.all(
         :order => "#{Query.table_name}.name ASC",
         # Project specific queries and global queries
         :conditions => (@project.nil? ? ["project_id IS NULL"] : ["project_id IS NULL OR project_id = ?", @project.id])
@@ -347,6 +347,9 @@ module IssuesHelper
 
   # Find the name of an associated record stored in the field attribute
   def find_name_by_reflection(field, id)
+    unless id.present?
+      return nil
+    end
     association = Issue.reflect_on_association(field.to_sym)
     if association
       record = association.class_name.constantize.find_by_id(id)
@@ -369,45 +372,5 @@ module IssuesHelper
         end
       end
     end
-  end
-
-  def issues_to_csv(issues, project, query, options={})
-    decimal_separator = l(:general_csv_decimal_separator)
-    encoding = l(:general_csv_encoding)
-    columns = (options[:columns] == 'all' ? query.available_inline_columns : query.inline_columns)
-    if options[:description]
-      if description = query.available_columns.detect {|q| q.name == :description}
-        columns << description
-      end
-    end
-
-    export = FCSV.generate(:col_sep => l(:general_csv_separator)) do |csv|
-      # csv header fields
-      csv << [ "#" ] + columns.collect {|c| Redmine::CodesetUtil.from_utf8(c.caption.to_s, encoding) }
-
-      # csv lines
-      issues.each do |issue|
-        col_values = columns.collect do |column|
-          s = if column.is_a?(QueryCustomFieldColumn)
-            cv = issue.custom_field_values.detect {|v| v.custom_field_id == column.custom_field.id}
-            show_value(cv)
-          else
-            value = column.value(issue)
-            if value.is_a?(Date)
-              format_date(value)
-            elsif value.is_a?(Time)
-              format_time(value)
-            elsif value.is_a?(Float)
-              ("%.2f" % value).gsub('.', decimal_separator)
-            else
-              value
-            end
-          end
-          s.to_s
-        end
-        csv << [ issue.id.to_s ] + col_values.collect {|c| Redmine::CodesetUtil.from_utf8(c.to_s, encoding) }
-      end
-    end
-    export
   end
 end
