@@ -10,5 +10,12 @@ if Dir.glob(File.join(vendor_plugins_dir, "*")).any?
   exit 1
 end
 
+# http://www.redmine.org/issues/11058
+# http://www.redmine.org/issues/11881#note-14
+RedmineApp::Application.routes.default_scope = { :path => '/redmine', :shallow_path => '/redmine' }
+
 # Initialize the rails application
 RedmineApp::Application.initialize!
+
+# http://www.redmine.org/projects/redmine/wiki/HowTo_Install_Redmine_in_a_sub-URI
+Redmine::Utils::relative_url_root = "/redmine"
